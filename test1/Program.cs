@@ -6,7 +6,12 @@ namespace test1
     {
         public static void Main(String[] args)
         {
-            Console.WriteLine("Hello World");
+            Console.WriteLine("Please enter a number:");
+            var inps = Console.In.ReadLine();
+
+            var inp  = Int32.Parse(inps);
+
+            Console.WriteLine(IsLeapYear(inp) ? "yay" : "nay");
         }
 
         public static bool IsLeapYear(int year)

@@ -7,15 +7,33 @@ namespace test1.Tests
     public class UnitTest1
     {
         [Fact]
-        public void Main_prints_hello_world()
+        public void promptUserNonLeapYearNumber()
         {
             var writer = new StringWriter();
+            var reader = new StringReader("1999");
             Console.SetOut(writer);
+            Console.SetIn(reader);
 
             Program.Main(new string[0]);
-            var output = writer.GetStringBuilder().ToString().Trim();
+            var output = writer.GetStringBuilder().ToString().Trim().Split("\n");
 
-            Assert.Equal("Hello World", output);
+            Assert.Equal("Please enter a number:", output[0]);
+            Assert.Equal("nay", output[1]);
+        }
+
+        [Fact]
+        public void promptUserLeapYearNumber()
+        {
+            var writer = new StringWriter();
+            var reader = new StringReader("2004");
+            Console.SetOut(writer);
+            Console.SetIn(reader);
+
+            Program.Main(new string[0]);
+            var output = writer.GetStringBuilder().ToString().Trim().Split("\n");
+
+            Assert.Equal("Please enter a number:", output[0]);
+            Assert.Equal("yay", output[1]);
         }
 
         [Fact]

@@ -37,6 +37,36 @@ namespace test1.Tests
         }
 
         [Fact]
+        public void handleNonNumberInput()
+        {
+            var writer = new StringWriter();
+            var reader = new StringReader("hey");
+            Console.SetOut(writer);
+            Console.SetIn(reader);
+
+            var exitCode = Program.Main(new string[0]);
+            var output = writer.GetStringBuilder().ToString().Trim().Split("\n");
+
+            Assert.Equal("Please provide a whole number", output[1]);
+            Assert.Equal(1, exitCode);
+        }
+
+        [Fact]
+        public void handleYearBefore1582()
+        {
+            var writer = new StringWriter();
+            var reader = new StringReader("1581");
+            Console.SetOut(writer);
+            Console.SetIn(reader);
+
+            var exitCode = Program.Main(new string[0]);
+            var output = writer.GetStringBuilder().ToString().Trim().Split("\n");
+
+            Assert.Equal("Only 1582 and folliwing years are supported", output[1]);
+            Assert.Equal(1, exitCode);
+        }
+
+        [Fact]
         public void yearDivisibleBy4IsLeapYear()
         {
             var output = Program.IsLeapYear(2004);

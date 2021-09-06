@@ -4,14 +4,30 @@ namespace test1
 {
     public class Program
     {
-        public static void Main(String[] args)
+        public static int Main(String[] args)
         {
             Console.WriteLine("Please enter a number:");
             var inps = Console.In.ReadLine();
 
-            var inp  = Int32.Parse(inps);
+            try
+            {
+                var inp = Int32.Parse(inps);
 
-            Console.WriteLine(IsLeapYear(inp) ? "yay" : "nay");
+                if (inp < 1582)
+                {
+                    Console.WriteLine("Only 1582 and folliwing years are supported");
+                    return 1;
+                }
+
+                Console.WriteLine(IsLeapYear(inp) ? "yay" : "nay");
+                return 0;
+
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Please provide a whole number");
+                return 1;
+            }
         }
 
         public static bool IsLeapYear(int year)
